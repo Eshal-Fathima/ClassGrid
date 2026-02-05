@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.log
+*.db
+venv/
+
+# Environment / secrets
+.env
+*.env
+*.env.*
+
+# Node / frontend
+node_modules/
+dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Database credentials or config
+*db_config*
+*database*.json
+*database*.yml
+
