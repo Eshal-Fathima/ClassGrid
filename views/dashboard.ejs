@@ -1,0 +1,64 @@
+<%- include('partials/header', { title: 'Dashboard', profile }) %>
+<% if (typeof saved !== 'undefined' && saved) { %><p class="msg">Saved.</p><% } %>
+<h1>Dashboard</h1>
+<p><a href="/timetable" class="btn btn-sm">Edit Timetable</a></p>
+
+<section class="card">
+  <h2>Weekly Timetable</h2>
+  <div class="table-scroll">
+    <table class="grid">
+      <tr>
+        <th>Period</th>
+        <% dayNames.forEach(function(d) { %><th><%= d %></th><% }); %>
+      </tr>
+      <% gridRows.forEach(function(row, i) { %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <% row.forEach(function(cell) { %><td><%= cell || '—' %></td><% }); %>
+      </tr>
+      <% }); %>
+    </table>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Attendance Rules</h2>
+  <% if (rules) { %>
+  <p>Minimum <strong><%= rules.minimum_percentage %>%</strong> · <%= rules.semester_start %> – <%= rules.semester_end %></p>
+  <% } else { %><p>Not set.</p><% } %>
+  <a href="/rules" class="btn btn-sm">Set rules</a>
+</section>
+
+<section class="card">
+  <h2>Subject-wise Attendance</h2>
+  <% if (summary && summary.length) { %>
+  <div class="table-scroll">
+    <table class="grid">
+      <tr><th>Subject</th><th>Total</th><th>Attended</th><th>Missed</th><th>%</th><th>Safe to miss</th></tr>
+      <% summary.forEach(function(s) { %>
+      <tr>
+        <td><%= s.name %></td>
+        <td><%= s.total %></td>
+        <td><%= s.attended %></td>
+        <td><%= s.missed %></td>
+        <td><%= s.percentage %>%</td>
+        <td><%= s.safeToMiss %> hrs</td>
+      </tr>
+      <% }); %>
+    </table>
+  </div>
+  <% } else { %>
+  <p>Set timetable and mark attendance to see summary.</p>
+  <a href="/attendance" class="btn btn-sm">Mark attendance</a>
+  <% } %>
+</section>
+
+<section class="card">
+  <h2>Exam days</h2>
+  <% if (examDates && examDates.length) { %>
+  <ul class="exam-list">
+    <% examDates.forEach(function(d) { %><li class="exam-day"><%= d %></li><% }); %>
+  </ul>
+  <% } else { %><p class="muted">Mark a class as &quot;Exam&quot; in Mark Attendance to list exam days here.</p><% } %>
+</section>
+<%- include('partials/footer') %>

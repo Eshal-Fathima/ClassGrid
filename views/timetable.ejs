@@ -1,0 +1,25 @@
+<%- include('partials/header', { title: 'Edit Timetable', profile }) %>
+<div class="card">
+  <h1>Edit Timetable</h1>
+  <p>Set each cell. Leave blank for no class. Save to overwrite.</p>
+  <form method="post" action="/timetable" class="form">
+    <div class="table-scroll">
+      <table class="grid edit-grid">
+        <tr>
+          <th>Period</th>
+          <% dayNames.forEach(function(d) { %><th><%= d %></th><% }); %>
+        </tr>
+        <% editRows.forEach(function(row) { %>
+        <tr>
+          <td><%= row.period %></td>
+          <% row.cells.forEach(function(c) { %>
+          <td><input type="text" name="cell_<%= c.dayIdx %>_<%= row.period %>" value="<%= c.value %>" placeholder="Subject"></td>
+          <% }); %>
+        </tr>
+        <% }); %>
+      </table>
+    </div>
+    <button type="submit" class="btn">Save timetable</button>
+  </form>
+</div>
+<%- include('partials/footer') %>

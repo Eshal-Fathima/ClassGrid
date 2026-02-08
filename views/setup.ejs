@@ -1,0 +1,18 @@
+<%- include('partials/header', { title: 'Setup', profile: profile }) %>
+<div class="card">
+  <h1>Welcome to ClassGrid</h1>
+  <p>Enter your details. No login required.</p>
+  <% if (typeof error !== 'undefined' && error) { %><p class="error"><%= error %></p><% } %>
+  <form method="post" action="/setup" class="form">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required placeholder="Your name">
+    </div>
+    <div class="field">
+      <label for="semester">Semester (optional)</label>
+      <input type="text" id="semester" name="semester" placeholder="e.g. Sem 5">
+    </div>
+    <button type="submit" class="btn">Continue</button>
+  </form>
+</div>
+<%- include('partials/footer') %>

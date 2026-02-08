@@ -1,18 +1,18 @@
-# Python
-__pycache__/
-*.py[cod]
-*.log
-*.db
-venv/
+# Dependencies
+node_modules/
+
+# Legacy (removed)
+backend/
+frontend/
 
 # Environment / secrets
 .env
 *.env
 *.env.*
 
-# Node / frontend
-node_modules/
-dist/
+# Logs / OS
+*.log
+.DS_Store
 
 # OS / editor
 .DS_Store

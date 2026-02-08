@@ -1,47 +1,17 @@
-# ClassGrid 📊📅
+# ClassGrid
 
-**ClassGrid** is a smart attendance tracking and timetable management web app designed for college students.  
-It helps students understand **when they can safely take leave** by combining a fixed timetable, attendance rules, and calendar-based insights.
+Timetable and attendance tracker for college students. Set your timetable once per semester; track attendance and see how many hours you can safely miss.
 
----
+**Stack:** Node.js, Express, EJS, MySQL. One server, server-rendered HTML, plain CSS, minimal JS.
 
-## 🚀 Features
+## Run
 
-- 🔐 User authentication (login & signup)
-- 🗓️ One-time semester timetable setup (grid-based)
-- 🔒 Timetable remains locked unless manually edited
-- 📊 Subject-wise attendance tracking
-- 🎯 Custom minimum attendance percentage (75%, 80%, etc.)
-- 📅 Calendar view with exam & leave indicators
-- 🚨 Smart warnings for attendance risk
-- 🌗 Light & Dark theme support
-- 📱 Fully responsive (mobile & desktop)
+See **[RUN.md](RUN.md)** for steps.
 
----
+```bash
+# After creating DB and .env:
+npm install
+node server.js
+```
 
-## 🧠 Core Idea
-
-Unlike traditional attendance apps, ClassGrid focuses on **decision support** —  
-helping students know *which classes they can afford to miss* without violating attendance rules.
-
----
-
-## 🛠 Tech Stack
-
-- **Frontend:** React + Vite, Tailwind CSS  
-- **Backend:** Python (Flask)  
-- **Database:** MySQL  
-- **Auth:** Email & Password
-
----
-
-## 📌 Use Case
-
-Ideal for college students who want a clear, stress-free way to manage attendance, exams, and leave planning across a semester.
-
----
-
-## 📄 Status
-
-Currently under active development 🚧
-
+Open http://localhost:3000

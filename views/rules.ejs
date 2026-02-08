@@ -1,0 +1,22 @@
+<%- include('partials/header', { title: 'Attendance Rules', profile }) %>
+<div class="card">
+  <h1>Attendance Rules</h1>
+  <p>Set once per semester.</p>
+  <form method="post" action="/rules" class="form">
+    <div class="field">
+      <label for="minimum_percentage">Minimum %</label>
+      <input type="number" id="minimum_percentage" name="minimum_percentage" min="1" max="100" value="<%= rules ? rules.minimum_percentage : 75 %>" required>
+    </div>
+    <div class="field">
+      <label for="semester_start">Semester start</label>
+      <input type="date" id="semester_start" name="semester_start" value="<%= rules ? rules.semester_start : '' %>" required>
+    </div>
+    <div class="field">
+      <label for="semester_end">Semester end</label>
+      <input type="date" id="semester_end" name="semester_end" value="<%= rules ? rules.semester_end : '' %>" required>
+    </div>
+    <button type="submit" class="btn">Save</button>
+    <a href="/" class="btn btn-ghost">Cancel</a>
+  </form>
+</div>
+<%- include('partials/footer') %>

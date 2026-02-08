@@ -1,0 +1,44 @@
+<%- include('partials/header', { title: 'Mark Attendance', profile }) %>
+<div class="card">
+  <h1>Mark Attendance</h1>
+  <% if (typeof saved !== 'undefined' && saved) { %><p class="msg">Saved.</p><% } %>
+  <form method="post" action="/attendance" class="form form-inline">
+    <div class="field">
+      <label for="date">Date</label>
+      <input type="date" id="date" name="date" required>
+    </div>
+    <div class="field">
+      <label for="subject_id">Subject</label>
+      <select id="subject_id" name="subject_id" required>
+        <option value="">— Select —</option>
+        <% if (subjects && subjects.length) { subjects.forEach(function(s) { %>
+        <option value="<%= s.id %>"><%= s.name %></option>
+        <% }); } %>
+      </select>
+    </div>
+    <div class="field">
+      <label for="status">Status</label>
+      <select id="status" name="status" required>
+        <option value="attended">Attended</option>
+        <option value="missed">Missed</option>
+        <option value="holiday">College Holiday</option>
+        <option value="exam">Exam</option>
+      </select>
+    </div>
+    <button type="submit" class="btn">Save</button>
+  </form>
+</div>
+<div class="card">
+  <h2>Recent</h2>
+  <% if (recent && recent.length) { %>
+  <div class="table-scroll">
+    <table class="grid">
+      <tr><th>Date</th><th>Subject</th><th>Status</th></tr>
+      <% recent.forEach(function(r) { %>
+      <tr><td><%= r.date %></td><td><%= r.name %></td><td><%= r.status %></td></tr>
+      <% }); %>
+    </table>
+  </div>
+  <% } else { %><p class="muted">No entries yet.</p><% } %>
+</div>
+<%- include('partials/footer') %>

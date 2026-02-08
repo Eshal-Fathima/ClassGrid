@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'ClassGrid' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="wrap">
+      <a href="/" class="brand">ClassGrid</a>
+      <% if (profile) { %>
+      <nav>
+        <span class="user"><%= profile.name %><% if (profile.semester) { %> (<%= profile.semester %>)<% } %></span>
+        <a href="/">Dashboard</a>
+        <a href="/timetable">Edit Timetable</a>
+        <a href="/attendance">Mark Attendance</a>
+        <a href="/rules">Rules</a>
+        <a href="/logout">Logout</a>
+      </nav>
+      <button type="button" class="theme-btn" id="themeBtn">Dark</button>
+      <% } %>
+    </div>
+  </header>
+  <main class="main wrap">
