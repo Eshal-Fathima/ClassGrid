@@ -1,3 +1,4 @@
+<% const currentPage = typeof page !== 'undefined' ? page : ''; %>
 <!DOCTYPE html>
 <html lang="en" id="htmlRoot">
 <head>
@@ -7,19 +8,20 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <header class="header">
+
+<header class="header">
   <div class="wrap header-inner">
 
     <a href="/" class="brand">ClassGrid</a>
 
     <% if (profile) { %>
-      <div class="hash-bar">
-        <a href="/" class="<%= page === 'dashboard' ? 'active' : '' %>">Dashboard</a>
-        <a href="/timetable" class="<%= page === 'timetable' ? 'active' : '' %>">Edit Timetable</a>
-        <a href="/attendance" class="<%= page === 'attendance' ? 'active' : '' %>">Mark Attendance</a>
-        <a href="/rules" class="<%= page === 'rules' ? 'active' : '' %>">Rules</a>
+      <nav class="hash-bar">
+        <a href="/" class="<%= currentPage === 'dashboard' ? 'active' : '' %>">Dashboard</a>
+        <a href="/timetable" class="<%= currentPage === 'timetable' ? 'active' : '' %>">Edit Timetable</a>
+        <a href="/attendance" class="<%= currentPage === 'attendance' ? 'active' : '' %>">Mark Attendance</a>
+        <a href="/rules" class="<%= currentPage === 'rules' ? 'active' : '' %>">Rules</a>
         <a href="/logout">Logout</a>
-      </div>
+      </nav>
 
       <div class="user">
         <%= profile.name %>
@@ -34,4 +36,4 @@
   </div>
 </header>
 
-  <main class="main wrap">
+<main class="main wrap">
