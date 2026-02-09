@@ -43,6 +43,86 @@ body {
   padding: 0.9rem 0;
 }
 
+/* =========================
+   Hash Bar Navigation
+   ========================= */
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Glass pill */
+.hash-bar {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+
+  background: rgba(18, 24, 42, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(91, 140, 255, 0.45);
+  box-shadow:
+    0 0 18px rgba(91, 140, 255, 0.35),
+    inset 0 0 12px rgba(140, 180, 255, 0.15);
+
+  position: relative;
+}
+
+/* Hash bar glow */
+.hash-bar::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(91,140,255,0.9),
+    rgba(140,180,255,0.4),
+    rgba(91,140,255,0.9)
+  );
+  filter: blur(12px);
+  opacity: 0.35;
+  z-index: -1;
+}
+
+/* Links inside pill */
+.hash-bar a {
+  position: relative;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #b8c2e6;
+
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.15s ease;
+}
+
+/* Hover */
+.hash-bar a:hover {
+  color: #ffffff;
+  background: rgba(91, 140, 255, 0.18);
+  box-shadow: 0 0 14px rgba(91, 140, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Active tab */
+.hash-bar a.active {
+  color: #ffffff;
+  background: rgba(91, 140, 255, 0.28);
+  box-shadow:
+    0 0 18px rgba(91, 140, 255, 0.65),
+    inset 0 0 10px rgba(140, 180, 255, 0.35);
+}
+
+
 .header .wrap {
   display: flex;
   align-items: center;

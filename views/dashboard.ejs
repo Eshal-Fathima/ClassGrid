@@ -1,4 +1,8 @@
-<%- include('partials/header', { title: 'Dashboard', profile }) %>
+<%- include('partials/header', {
+  title: 'Dashboard',
+  profile,
+  page: 'dashboard'
+}) %>
 <% if (typeof saved !== 'undefined' && saved) { %><p class="msg">Saved.</p><% } %>
 <h1>Dashboard</h1>
 <p><a href="/timetable" class="btn btn-sm">Edit Timetable</a></p>
