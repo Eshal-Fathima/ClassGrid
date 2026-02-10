@@ -19,9 +19,10 @@ async function initDb() {
   try {
     await conn.query(`
       CREATE TABLE IF NOT EXISTS UserProfile (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        semester VARCHAR(100)
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      reg_id VARCHAR(100) NOT NULL UNIQUE,
+      semester VARCHAR(100)
       )
     `);
     await conn.query(`

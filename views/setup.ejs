@@ -1,18 +1,54 @@
-<%- include('partials/header', { title: 'Setup' }) %>
-<div class="card">
-  <h1>Welcome to ClassGrid</h1>
-  <p>Enter your details. No login required.</p>
-  <% if (typeof error !== 'undefined' && error) { %><p class="error"><%= error %></p><% } %>
-  <form method="post" action="/setup" class="form">
-    <div class="field">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required placeholder="Your name">
-    </div>
-    <div class="field">
-      <label for="semester">Semester (optional)</label>
-      <input type="text" id="semester" name="semester" placeholder="e.g. Sem 5">
-    </div>
-    <button type="submit" class="btn">Continue</button>
-  </form>
+<%- include('partials/header', { title: 'Welcome', profile: null }) %>
+
+<div class="center-screen">
+  <div class="setup-card">
+
+    <h1>Welcome to ClassGrid</h1>
+    <p>Enter your details.</p>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <form method="post" action="/setup" class="form">
+
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your full name"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="reg_id">Registration ID</label>
+        <input
+          type="text"
+          id="reg_id"
+          name="reg_id"
+          placeholder="e.g. 21CS045"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="semester">Semester</label>
+        <input
+          type="text"
+          id="semester"
+          name="semester"
+          placeholder="e.g. Semester 6"
+        >
+      </div>
+
+      <button type="submit" class="btn">Continue</button>
+
+    </form>
+
+  </div>
 </div>
+
 <%- include('partials/footer') %>

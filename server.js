@@ -50,19 +50,57 @@ function requireProfile(fn) {
 }
 
 // ----- Setup -----
+// ===== Setup =====
+
 app.get('/setup', async (req, res) => {
   if (await getProfile(req)) return res.redirect('/');
-  res.render('setup', { profile: null });
+  res.render('setup', { profile: null, error: null });
 });
 
 app.post('/setup', async (req, res) => {
   const name = (req.body.name || '').trim();
+  const reg_id = (req.body.reg_id || '').trim();
   const semester = (req.body.semester || '').trim();
-  if (!name) return res.render('setup', { profile: null, error: 'Name is required' });
-  const [r] = await pool.query('INSERT INTO UserProfile (name, semester) VALUES (?, ?)', [name, semester || null]);
-  setProfileCookie(res, r.insertId);
+
+  if (!name || !reg_id) {
+    return res.render('setup', {
+      profile: null,
+      error: 'Name and Registration ID are required',
+    });
+  }
+
+  // Check if user already exists
+  const [rows] = await pool.query(
+    'SELECT id FROM UserProfile WHERE reg_id = ?',
+    [reg_id]
+  );
+
+  let userId;
+
+  if (rows.length > 0) {
+    // Reuse existing user
+    userId = rows[0].id;
+
+    await pool.query(
+      'UPDATE UserProfile SET name = ?, semester = ? WHERE id = ?',
+      [name, semester || null, userId]
+    );
+  } else {
+    // Create new user
+    const [result] = await pool.query(
+      'INSERT INTO UserProfile (name, reg_id, semester) VALUES (?, ?, ?)',
+      [name, reg_id, semester || null]
+    );
+    userId = result.insertId;
+  }
+
+  // Store user in session / cookie
+  setProfileCookie(res, userId);
+
   res.redirect('/');
 });
+
+// ===== Logout =====
 
 app.get('/logout', (req, res) => {
   clearProfileCookie(res);
