@@ -7,7 +7,7 @@ const mysql = require('mysql2/promise');
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
+  password: process.env.DB_PASSWORD || 'HRSD@19es',
   database: process.env.DB_NAME || 'classgrid',
   waitForConnections: true,
   connectionLimit: 10,
@@ -19,10 +19,9 @@ async function initDb() {
   try {
     await conn.query(`
       CREATE TABLE IF NOT EXISTS UserProfile (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
-      reg_id VARCHAR(100) NOT NULL UNIQUE,
-      semester VARCHAR(100)
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        semester VARCHAR(100)
       )
     `);
     await conn.query(`

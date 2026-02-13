@@ -121,7 +121,7 @@ app.get('/', requireProfile(async (req, res) => {
   const grid = {};
   entries.forEach(e => { grid[`${e.day}-${e.period}`] = e.subject_name; });
 
-  const periods = [1,2,3,4,5,6,7,8];
+  const periods = [1, 2, 3, 4, 5, 6, 7, 8];
   const gridRows = periods.map(p => DAYS.map(d => grid[`${d}-${p}`] || ''));
 
   const [subjects] = await pool.query('SELECT * FROM Subject WHERE user_profile_id = ?', [profile.id]);
@@ -174,7 +174,7 @@ app.get('/timetable', requireProfile(async (req, res) => {
   );
   const grid = {};
   entries.forEach(e => { grid[`${e.day}-${e.period}`] = e.subject_name; });
-  const periods = [1,2,3,4,5,6,7,8,9,10];
+  const periods = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const editRows = periods.map(p => ({ period: p, cells: DAYS.map((d, i) => ({ dayIdx: i, dayName: d, value: grid[`${d}-${p}`] || '' })) }));
   res.render('timetable', { profile, dayNames: DAYS, editRows });
 }));
@@ -226,7 +226,7 @@ app.post('/attendance', requireProfile(async (req, res) => {
   const date = req.body.date;
   const subjectId = req.body.subject_id;
   const status = req.body.status;
-  if (!date || !subjectId || !['attended','missed','holiday','exam'].includes(status)) {
+  if (!date || !subjectId || !['attended', 'missed', 'holiday', 'exam'].includes(status)) {
     return res.redirect('/attendance');
   }
   const [sub] = await pool.query('SELECT id FROM Subject WHERE id = ? AND user_profile_id = ?', [subjectId, profile.id]);
@@ -274,3 +274,27 @@ initDb()
     console.error('DB init failed:', err.message);
     process.exit(1);
   });
+
+app.post('/attendance/setup', async (req, res) => {
+  const profile = await getProfile(req);
+  if (!profile) return res.redirect('/setup');
+
+  const [subjects] = await pool.query(
+    'SELECT id FROM Subject WHERE user_profile_id = ?',
+    [profile.id]
+  );
+
+  for (const s of subjects) {
+    const total = parseInt(req.body[`total_${s.id}`] || 0);
+    const conducted = parseInt(req.body[`conducted_${s.id}`] || 0);
+    const attended = parseInt(req.body[`attended_${s.id}`] || 0);
+
+    await pool.query(`
+      UPDATE Subject
+      SET total_hours = ?, conducted_hours = ?, attended_hours = ?
+      WHERE id = ?
+    `, [total, conducted, attended, s.id]);
+  }
+
+  res.redirect('/attendance');
+});
